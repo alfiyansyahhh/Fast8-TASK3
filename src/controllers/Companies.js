@@ -6,8 +6,7 @@ const Op = Sequelize.Op;
 
 const Companies = {
     getAll: async (req, res) => {
-      try {
-          
+      try {      
         const { query } = req;
         const search = query.search === undefined ? "" : query.search;
         const field = query.field === undefined ? "id" : query.field;
