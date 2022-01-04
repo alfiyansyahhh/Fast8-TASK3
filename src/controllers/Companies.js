@@ -44,7 +44,66 @@ const Companies = {
       } catch (error) {
         failed(res, 404, error);
       }
-    }
+    },
+    getDetail: async (req, res) => {
+        try {
+          const id = req.params.id;
+          const result = await CompaniesModels.findAll({
+            where: {
+              id,
+            },
+          });
+          success(res, result, "Get Details Users Success");
+        } catch (error) {
+          failed(res, 404, error);
+        }
+      },
+      update: async (req, res) => {
+        try {
+          const {
+            company_name,
+            telephone_number,
+            is_active,
+            address,
+          } = req.body;
+          
+          const id = req.params.id;
+          const result = await CompaniesModels.update(
+            {
+            company_name,
+            telephone_number,
+            is_active,
+            address,    
+            },
+            {
+              where: {
+                id,
+              },
+            });
+       
+          success(res, result, "Update Data Success");
+          
+        } catch (error) {
+          failed(res, 500, error);
+        }
+      },
+      deleteEmployees: async (req, res) => {
+        try {
+              
+          const id = req.params.id;
+          const result = await CompaniesModels.destroy(
+            {
+              where: {
+                id,
+              },
+            });
+       
+          success(res, result, "Delete Data Success");
+          
+        } catch (error) {
+          failed(res, 500, error);
+        }
+      },
 }
 
 module.exports = Companies;

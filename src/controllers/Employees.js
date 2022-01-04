@@ -53,7 +53,7 @@ const Employees = {
             id,
           },
         });
-        success(res, result, "Get Details Users Success");
+        success(res, result, "Get Details employees Success");
       } catch (error) {
         failed(res, 404, error);
       }
