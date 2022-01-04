@@ -1,7 +1,6 @@
 const express = require('express');
 const { 
     getAll,
-    getAll,
     getDetail,
     update,
     deleteCompanies
