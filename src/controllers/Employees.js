@@ -17,10 +17,10 @@ const Employees = {
   
         const all = await EmployeesModels.findAll({
           where: {
-                name: {
-                  [Op.like]: `%${search}%`,
-                },
+              name: {
+                [Op.like]: `%${search}%`,
               },
+            },
         })
   
         const result = await EmployeesModels.findAll({
@@ -44,7 +44,20 @@ const Employees = {
       } catch (error) {
         failed(res, 404, error);
       }
-    }
+    },
+    getDetail: async (req, res) => {
+      try {
+        const id = req.params.id;
+        const result = await EmployeesModels.findAll({
+          where: {
+            id,
+          },
+        });
+        success(res, result, "Get Details Users Success");
+      } catch (error) {
+        failed(res, 404, error);
+      }
+    },
 }
 
 module.exports = Employees;
