@@ -14,7 +14,7 @@ const Companies = {
         const limit = query.limit === undefined ? 100 : parseInt(query.limit);
         const page = query.page === undefined ? 1 : query.page;
         const offset = page === 1 ? 0 : (page - 1) * limit;
-  
+
         const all = await CompaniesModels.findAll({
           where: {
                 name: {
@@ -53,57 +53,57 @@ const Companies = {
               id,
             },
           });
-          success(res, result, "Get Details Users Success");
+          success(res, result, "Get Details Companies Success");
         } catch (error) {
           failed(res, 404, error);
         }
-      },
-      update: async (req, res) => {
-        try {
-          const {
-            company_name,
-            telephone_number,
-            is_active,
-            address,
-          } = req.body;
-          
-          const id = req.params.id;
-          const result = await CompaniesModels.update(
-            {
-            company_name,
-            telephone_number,
-            is_active,
-            address,    
+    },
+    update: async (req, res) => {
+    try {
+        const {
+        company_name,
+        telephone_number,
+        is_active,
+        address,
+        } = req.body;
+        
+        const id = req.params.id;
+        const result = await CompaniesModels.update(
+        {
+        company_name,
+        telephone_number,
+        is_active,
+        address,    
+        },
+        {
+            where: {
+            id,
             },
-            {
-              where: {
-                id,
-              },
-            });
-       
-          success(res, result, "Update Data Success");
-          
-        } catch (error) {
-          failed(res, 500, error);
-        }
-      },
-      deleteEmployees: async (req, res) => {
-        try {
-              
-          const id = req.params.id;
-          const result = await CompaniesModels.destroy(
-            {
-              where: {
-                id,
-              },
-            });
-       
-          success(res, result, "Delete Data Success");
-          
-        } catch (error) {
-          failed(res, 500, error);
-        }
-      },
+        });
+    
+        success(res, result, "Update Data Success");
+        
+    } catch (error) {
+        failed(res, 500, error);
+    }
+    },
+    deleteCompanies: async (req, res) => {
+    try {
+            
+        const id = req.params.id;
+        const result = await CompaniesModels.destroy(
+        {
+            where: {
+            id,
+            },
+        });
+    
+        success(res, result, "Delete Data Success");
+        
+    } catch (error) {
+        failed(res, 500, error);
+    }
+    },
 }
 
 module.exports = Companies;
