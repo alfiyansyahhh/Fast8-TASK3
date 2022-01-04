@@ -58,6 +58,54 @@ const Employees = {
         failed(res, 404, error);
       }
     },
+    update: async (req, res) => {
+      try {
+        const {
+          name,
+          email,
+          phone_number,
+          jobtitle,
+          company_id
+        } = req.body;
+        
+        const id = req.params.id;
+        const result = await EmployeesModels.update(
+          {
+            name,
+            email,
+            phone_number,
+            jobtitle,
+            company_id     
+          },
+          {
+            where: {
+              id,
+            },
+          });
+     
+        success(res, result, "Update Data Success");
+        
+      } catch (error) {
+        failed(res, 500, error);
+      }
+    },
+    deleteEmployees: async (req, res) => {
+      try {
+            
+        const id = req.params.id;
+        const result = await EmployeesModels.destroy(
+          {
+            where: {
+              id,
+            },
+          });
+     
+        success(res, result, "Delete Data Success");
+        
+      } catch (error) {
+        failed(res, 500, error);
+      }
+    },
 }
 
 module.exports = Employees;
