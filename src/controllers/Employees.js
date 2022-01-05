@@ -1,4 +1,5 @@
 const EmployeesModels = require("../models/Employees");
+const CompaniesModels = require("../models/Companies");
 const { Sequelize } = require("sequelize");
 const { success, failed } = require("../helpers/response");
 const Op = Sequelize.Op;
@@ -14,13 +15,16 @@ const Employees = {
         const limit = query.limit === undefined ? 100 : parseInt(query.limit);
         const page = query.page === undefined ? 1 : query.page;
         const offset = page === 1 ? 0 : (page - 1) * limit;
+
+        EmployeesModels.hasMany(CompaniesModels, {foreignKey: 'id'})
   
         const all = await EmployeesModels.findAll({
           where: {
               name: {
                 [Op.like]: `%${search}%`,
               },
-            },
+          },
+          include: [CompaniesModels]
         })
   
         const result = await EmployeesModels.findAll({
@@ -33,6 +37,7 @@ const Employees = {
               limit,
               field,
               typeSort,
+              include: [CompaniesModels]
             })
             const response = {
               result,
